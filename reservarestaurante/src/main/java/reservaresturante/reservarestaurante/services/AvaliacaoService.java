@@ -18,7 +18,7 @@ public class AvaliacaoService {
         Avaliacao entity = new Avaliacao();
         entity.setAvaliacaoId(avaliacaoDTO.getAvaliacaoId());
         entity.setComentarios(avaliacaoDTO.getComentarios());
-        entity.setNotas(avaliacaoDTO.getNotas());
+        entity.setNota(avaliacaoDTO.getNota());
         entity.setRestauranteId(avaliacaoDTO.getRestauranteId());
         entity.setUsuarioId(avaliacaoDTO.getUsuarioId());
         avaliacaoRepository.save(entity);

@@ -12,14 +12,14 @@ import java.util.List;
 public class AvaliacaoDTO {
 
     private String avaliacaoId;
-    private List<Integer> notas = new ArrayList<>();
+    private double nota;
     private String comentarios;
     private Long  restauranteId;
     private Long usuarioId;
 
-    public AvaliacaoDTO(String avaliacaoId, List<Integer> notas, String comentarios, Long restauranteId, Long usuarioId) {
+    public AvaliacaoDTO(String avaliacaoId, double nota, String comentarios, Long restauranteId, Long usuarioId) {
         this.avaliacaoId = avaliacaoId;
-        this.notas = notas;
+        this.nota = nota;
         this.comentarios = comentarios;
         this.restauranteId = restauranteId;
         this.usuarioId = usuarioId;
@@ -28,7 +28,7 @@ public class AvaliacaoDTO {
     public AvaliacaoDTO(Avaliacao entity){
         this.avaliacaoId = entity.getAvaliacaoId();
         this.comentarios=entity.getComentarios();
-        this.notas=entity.getNotas();
+        this.nota = entity.getNota();
         this.restauranteId= entity.getRestauranteId();
         this.usuarioId=entity.getUsuarioId();
     }

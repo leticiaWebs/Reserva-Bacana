@@ -1,5 +1,8 @@
-package reservaresturante.reservarestaurante.entities.utils;
+package reservaresturante.reservarestaurante.entities;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,12 +15,15 @@ import java.time.LocalTime;
 @Document(collection = "reserva")
 public class Reserva {
 
-    private Long id;
+    private Long reservaId;
     private LocalDate dataReserva;
+    private LocalTime horarioReserva;
     private LocalTime reservasConfirmadas;
     private LocalTime horarioDeAbertura;
     private LocalTime horarioDeEncerramento;
     private int capacidade;
-    //private boolean fazerReserva()
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "restaurante", referencedColumnName = "restauranteId")
+    private Long restauranteId;
 
 }
