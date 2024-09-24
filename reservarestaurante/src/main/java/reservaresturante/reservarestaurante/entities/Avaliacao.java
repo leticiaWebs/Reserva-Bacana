@@ -7,7 +7,6 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
-import reservaresturante.reservarestaurante.entities.Restaurante;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,17 +1,17 @@
 package reservaresturante.reservarestaurante.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reservaresturante.reservarestaurante.DTO.RestauranteDTO;
 import reservaresturante.reservarestaurante.entities.Restaurante;
+import reservaresturante.reservarestaurante.entities.utils.Enuns.TipoCozinha;
 import reservaresturante.reservarestaurante.repositories.RestauranteRepository;
 import reservaresturante.reservarestaurante.services.exceptions.ResourceNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 public class RestauranteService {
@@ -39,6 +39,16 @@ public class RestauranteService {
         List<Restaurante> restaurantes = restauranteRepository.findByNome(nome);
         if(restaurantes.isEmpty()){
             throw new ResourceNotFoundException("Nenhum restaurante encontrado com o nome: " + nome);
+        }
+        return restaurantes.stream()
+                .map(RestauranteDTO::new)
+                .collect(Collectors.toList());
+    }
+    @Transactional(readOnly = true)
+    public List<RestauranteDTO> findByTipoCozinha(TipoCozinha tipoCozinha) {
+        List<Restaurante> restaurantes = restauranteRepository.findByTipoCozinha(tipoCozinha);
+        if (restaurantes.isEmpty()) {
+            throw new ResourceNotFoundException("Nenhum restaurante encontrado com a cozinha: " + tipoCozinha);
         }
         return restaurantes.stream()
                 .map(RestauranteDTO::new)

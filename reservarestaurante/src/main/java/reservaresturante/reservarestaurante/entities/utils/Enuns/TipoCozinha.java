@@ -1,6 +1,5 @@
 package reservaresturante.reservarestaurante.entities.utils.Enuns;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
@@ -28,6 +27,15 @@ public enum TipoCozinha {
 
     public String getDescricao(){
         return descricao;
+    }
+
+    public static TipoCozinha fromDescricao(String descricao) {
+        for (TipoCozinha tipo : TipoCozinha.values()) {
+            if (tipo.getDescricao().equalsIgnoreCase(descricao)) {
+                return tipo;
+            }
+        }
+        throw new IllegalArgumentException("Tipo de cozinha inválido: " + descricao);
     }
 
 }

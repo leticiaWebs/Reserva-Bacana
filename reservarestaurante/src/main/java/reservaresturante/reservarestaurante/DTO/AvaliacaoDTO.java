@@ -3,7 +3,6 @@ package reservaresturante.reservarestaurante.DTO;
 import lombok.Getter;
 import lombok.Setter;
 import reservaresturante.reservarestaurante.entities.Avaliacao;
-import reservaresturante.reservarestaurante.entities.Restaurante;
 
 import java.util.ArrayList;
 import java.util.List;

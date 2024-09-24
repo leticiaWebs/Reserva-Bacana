@@ -1,10 +1,10 @@
 package reservaresturante.reservarestaurante.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.persistence.CascadeType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;

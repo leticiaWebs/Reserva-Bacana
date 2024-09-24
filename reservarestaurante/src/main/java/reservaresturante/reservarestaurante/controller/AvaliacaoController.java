@@ -1,17 +1,16 @@
 package reservaresturante.reservarestaurante.controller;
 
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reservaresturante.reservarestaurante.DTO.AvaliacaoDTO;
-import reservaresturante.reservarestaurante.DTO.RestauranteDTO;
-import reservaresturante.reservarestaurante.repositories.AvaliacaoRepository;
 import reservaresturante.reservarestaurante.services.AvaliacaoService;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/avaliacao")

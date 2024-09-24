@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "usuario")
 public class Usuario {
     private Long usuarioId;
+    private String numeroTelefone;
     private String nome;
 
 }

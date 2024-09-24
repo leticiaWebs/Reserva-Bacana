@@ -2,16 +2,14 @@ package reservaresturante.reservarestaurante.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import reservaresturante.reservarestaurante.DTO.RestauranteDTO;
-import reservaresturante.reservarestaurante.entities.Restaurante;
+import reservaresturante.reservarestaurante.entities.utils.Enuns.TipoCozinha;
 import reservaresturante.reservarestaurante.services.RestauranteService;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/restaurante")
@@ -34,6 +32,12 @@ public class RestauranteController {
         return ResponseEntity.ok(restaurante);
     }
 
+    @GetMapping("/tipoCozinha/{tipoCozinha}")
+    public ResponseEntity<List<RestauranteDTO>> findByTipoCozinha(@PathVariable String tipoCozinha) {
+        TipoCozinha tipo = TipoCozinha.fromDescricao(tipoCozinha);
+        List<RestauranteDTO> restaurante = restauranteService.findByTipoCozinha(tipo);
+        return ResponseEntity.ok(restaurante);
+    }
 
     @PostMapping
     public ResponseEntity<RestauranteDTO> inserirRestaurante(@RequestBody RestauranteDTO dto) {
