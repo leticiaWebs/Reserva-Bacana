@@ -1,10 +1,10 @@
 package reservaresturante.reservarestaurante.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -15,15 +15,14 @@ import java.time.LocalTime;
 @Document(collection = "reserva")
 public class Reserva {
 
-    private Long reservaId;
+    @Id
+    private String idReserva;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataReserva;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime horarioReserva;
-    private LocalTime reservasConfirmadas;
-    private LocalTime horarioDeAbertura;
-    private LocalTime horarioDeEncerramento;
-    private int capacidade;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "restaurante", referencedColumnName = "restauranteId")
-    private Long restauranteId;
+    private String reservasConfirmadas;
+    private ObjectId objectIdRestaurante;
+
 
 }

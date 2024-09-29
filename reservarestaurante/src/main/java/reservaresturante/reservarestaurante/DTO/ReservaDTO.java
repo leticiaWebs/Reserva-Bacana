@@ -1,9 +1,10 @@
 package reservaresturante.reservarestaurante.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import reservaresturante.reservarestaurante.entities.Reserva;
-import reservaresturante.reservarestaurante.entities.Restaurante;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,35 +13,28 @@ import java.time.LocalTime;
 @Getter
 public class ReservaDTO {
 
-    private Long reservaId;
+    private String idReserva;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataReserva;
-    private LocalTime reservasConfirmadas;
-    private LocalTime horarioDeAbertura;
-    private LocalTime horarioDeEncerramento;
-    private int capacidade;
+    private String reservasConfirmadas;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime horarioReserva;
-    private Long restauranteId;
+    private ObjectId objectIdRestaurante;
 
-    public ReservaDTO(Long reservaId, LocalDate dataReserva, LocalTime reservasConfirmadas, LocalTime horarioDeAbertura, LocalTime horarioDeEncerramento, int capacidade, LocalTime horarioReserva, Long restauranteId) {
-        this.reservaId = reservaId;
+    public ReservaDTO(String idReserva, LocalDate dataReserva, String reservasConfirmadas, LocalTime horarioReserva, ObjectId objectIdRestaurante) {
+        this.idReserva = idReserva;
         this.dataReserva = dataReserva;
         this.reservasConfirmadas = reservasConfirmadas;
-        this.horarioDeAbertura = horarioDeAbertura;
-        this.horarioDeEncerramento = horarioDeEncerramento;
-        this.capacidade = capacidade;
         this.horarioReserva = horarioReserva;
-        this.restauranteId = restauranteId;
+        this.objectIdRestaurante = objectIdRestaurante;
     }
 
     public ReservaDTO(Reserva entity){
-        this.reservaId = entity.getReservaId();
+       this.idReserva = entity.getIdReserva();
         this.dataReserva = entity.getDataReserva();
         this.reservasConfirmadas = entity.getReservasConfirmadas();
-        this.horarioDeAbertura = entity.getHorarioDeAbertura();
-        this.horarioDeEncerramento = entity.getHorarioDeEncerramento();
-        this.capacidade = entity.getCapacidade();
         this.horarioReserva = entity.getHorarioReserva();
-        this.restauranteId = entity.getRestauranteId();
+        this.objectIdRestaurante = entity.getObjectIdRestaurante();
     }
 
 }

@@ -2,34 +2,32 @@ package reservaresturante.reservarestaurante.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import reservaresturante.reservarestaurante.entities.Avaliacao;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 public class AvaliacaoDTO {
 
-    private String avaliacaoId;
+    private ObjectId objectIdAvaliacao;
     private double nota;
     private String comentarios;
-    private Long  restauranteId;
-    private Long usuarioId;
+    private ObjectId objectIdRestaurante;
+    private ObjectId objectIdUsuario;
 
-    public AvaliacaoDTO(String avaliacaoId, double nota, String comentarios, Long restauranteId, Long usuarioId) {
-        this.avaliacaoId = avaliacaoId;
+    public AvaliacaoDTO(ObjectId objectIdAvaliacao, double nota, String comentarios, ObjectId objectIdRestaurante, ObjectId objectIdUsuario) {
+        this.objectIdAvaliacao = objectIdAvaliacao;
         this.nota = nota;
         this.comentarios = comentarios;
-        this.restauranteId = restauranteId;
-        this.usuarioId = usuarioId;
+        this.objectIdRestaurante = objectIdRestaurante;
+        this.objectIdUsuario = objectIdUsuario;
     }
 
     public AvaliacaoDTO(Avaliacao entity){
-        this.avaliacaoId = entity.getAvaliacaoId();
+        this.objectIdAvaliacao = entity.getObjectIdAvaliacao();
         this.comentarios=entity.getComentarios();
         this.nota = entity.getNota();
-        this.restauranteId= entity.getRestauranteId();
-        this.usuarioId=entity.getUsuarioId();
+        this.objectIdRestaurante= entity.getObjectIdRestaurante();
+        this.objectIdUsuario=entity.getObjectIdUsuario();
     }
 }

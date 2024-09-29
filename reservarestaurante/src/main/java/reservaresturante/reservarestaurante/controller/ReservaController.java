@@ -2,35 +2,42 @@ package reservaresturante.reservarestaurante.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.*;
 import reservaresturante.reservarestaurante.DTO.ReservaDTO;
+import reservaresturante.reservarestaurante.entities.Reserva;
 import reservaresturante.reservarestaurante.services.ReservaService;
 
-import java.net.URI;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "/reserva")
+@RequestMapping(value = "/reservas")
 public class ReservaController {
-
     @Autowired
     private ReservaService reservaService;
 
-    @PostMapping("/informacoesrestaurante")
-    public ResponseEntity<ReservaDTO> inserirInformacoesRestaurante(@RequestBody ReservaDTO dto){
-        dto = reservaService.inserirInformacoesRestaurante(dto);
-        URI uri =  ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(dto.getRestauranteId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+    @GetMapping
+    public ResponseEntity<List<ReservaDTO>> findAll() {
+        List<ReservaDTO> reservas = reservaService.findAll();
+        return ResponseEntity.ok(reservas);
     }
-    @PostMapping("/adicionarreserva")
-    public ResponseEntity<ReservaDTO> inserirReserva(@RequestBody ReservaDTO dto){
-        dto = reservaService.inserirReserva(dto);
-        URI uri =  ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(dto.getReservaId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+
+    @GetMapping(value = "/{idReserva}")
+    public Reserva getReservaById(@PathVariable String idReserva) {
+        return reservaService.getReservaById(idReserva);
     }
+
+    // Endpoint para inserir uma nova reserva
+    @PostMapping
+    public ResponseEntity<ReservaDTO> inserirReserva(@RequestBody ReservaDTO reservaDTO) {
+        ReservaDTO novaReserva = reservaService.inserirReserva(reservaDTO);
+        return ResponseEntity.ok(novaReserva);
+    }
+    @PutMapping (value = "/{idReserva}")
+    public ResponseEntity<ReservaDTO> insert (@PathVariable String idReserva, @RequestBody ReservaDTO dto) {
+        dto = reservaService.updateReservasConfirmadas(idReserva, dto);
+        return ResponseEntity.ok().body(dto);
+    }
+
+
 }
+

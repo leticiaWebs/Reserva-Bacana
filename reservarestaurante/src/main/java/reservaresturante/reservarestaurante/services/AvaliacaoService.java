@@ -16,11 +16,11 @@ public class AvaliacaoService {
     @Transactional
     public AvaliacaoDTO inserirAvaliacao(AvaliacaoDTO avaliacaoDTO){
         Avaliacao entity = new Avaliacao();
-        entity.setAvaliacaoId(avaliacaoDTO.getAvaliacaoId());
+        entity.setObjectIdAvaliacao(avaliacaoDTO.getObjectIdAvaliacao());
         entity.setComentarios(avaliacaoDTO.getComentarios());
         entity.setNota(avaliacaoDTO.getNota());
-        entity.setRestauranteId(avaliacaoDTO.getRestauranteId());
-        entity.setUsuarioId(avaliacaoDTO.getUsuarioId());
+        entity.setObjectIdRestaurante(avaliacaoDTO.getObjectIdRestaurante());
+        entity.setObjectIdUsuario(avaliacaoDTO.getObjectIdUsuario());
         avaliacaoRepository.save(entity);
         return new AvaliacaoDTO(entity);
 

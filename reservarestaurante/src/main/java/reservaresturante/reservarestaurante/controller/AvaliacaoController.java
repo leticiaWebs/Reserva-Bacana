@@ -25,7 +25,7 @@ public class AvaliacaoController {
     public ResponseEntity<AvaliacaoDTO> inserirAvaliacao(@RequestBody AvaliacaoDTO dto) {
         dto = avaliacaoService.inserirAvaliacao(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(dto.getAvaliacaoId()).toUri();
+                .buildAndExpand(dto.getObjectIdAvaliacao()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 }

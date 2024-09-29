@@ -2,22 +2,24 @@ package reservaresturante.reservarestaurante.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import reservaresturante.reservarestaurante.entities.Usuario;
 
 @Getter
 @Setter
 public class UsuarioDTO {
-    private Long usuarioId;
+    private ObjectId objectIdUsuario;
     private String nome;
     private String numeroTelefone;
 
-    public UsuarioDTO(Long usuarioId, String nome, String numeroTelefone) {
-        this.usuarioId = usuarioId;
+    public UsuarioDTO(ObjectId objectIdUsuario, String nome, String numeroTelefone) {
+        this.objectIdUsuario = objectIdUsuario;
         this.nome = nome;
         this.numeroTelefone = numeroTelefone;
     }
+
     public UsuarioDTO(Usuario entity){
-        this.usuarioId= entity.getUsuarioId();
+        this.objectIdUsuario= entity.getObjectIdUsuario();
         this.nome = entity.getNome();
         this.numeroTelefone = entity.getNumeroTelefone();
     }

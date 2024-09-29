@@ -1,14 +1,17 @@
 package reservaresturante.reservarestaurante.entities;
 
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
 @Document(collection = "usuario")
 public class Usuario {
-    private Long usuarioId;
+    @Id
+    private ObjectId objectIdUsuario;
     private String numeroTelefone;
     private String nome;
 

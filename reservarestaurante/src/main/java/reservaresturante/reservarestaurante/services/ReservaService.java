@@ -1,47 +1,62 @@
 package reservaresturante.reservarestaurante.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reservaresturante.reservarestaurante.DTO.ReservaDTO;
 import reservaresturante.reservarestaurante.entities.Reserva;
-import reservaresturante.reservarestaurante.entities.Restaurante;
 import reservaresturante.reservarestaurante.repositories.ReservaRepository;
-import reservaresturante.reservarestaurante.repositories.RestauranteRepository;
+import reservaresturante.reservarestaurante.services.exceptions.ResourceNotFoundException;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservaService {
-
     @Autowired
     private ReservaRepository reservaRepository;
-    @Autowired
-    private RestauranteRepository restauranteRepository;
 
     @Transactional
-    public ReservaDTO inserirInformacoesRestaurante(ReservaDTO reservaDTO){
+    public List<ReservaDTO> findAll() {
+        List<Reserva> list = reservaRepository.findAll();
+        return list.stream().map(ReservaDTO::new).collect(Collectors.toList());
+
+    }
+
+    public Reserva getReservaById(String idReserva) {
+        Optional<Reserva> reserva = reservaRepository.findByIdReserva(idReserva);
+        if (reserva.isPresent()) {
+            return reserva.get();
+        } else {
+            throw new RuntimeException("Reserva não encontrada com o id: " + idReserva);
+        }
+    }
+
+    @Transactional
+    public ReservaDTO inserirReserva(ReservaDTO reservaDTO) {
         Reserva entity = new Reserva();
-        entity.setRestauranteId(reservaDTO.getRestauranteId());
-        entity.setHorarioDeAbertura(reservaDTO.getHorarioDeAbertura());
-        entity.setHorarioDeEncerramento(reservaDTO.getHorarioDeEncerramento());
-        entity.setCapacidade(reservaDTO.getCapacidade());
+        entity.setIdReserva(reservaDTO.getIdReserva());
+        entity.setDataReserva(reservaDTO.getDataReserva());
+        entity.setReservasConfirmadas(reservaDTO.getReservasConfirmadas());
+        entity.setHorarioReserva(reservaDTO.getHorarioReserva());
+        entity.setObjectIdRestaurante(reservaDTO.getObjectIdRestaurante());
         reservaRepository.save(entity);
         return new ReservaDTO(entity);
     }
 
-  @Transactional
-    public ReservaDTO inserirReserva(ReservaDTO reservaDTO){
-        Reserva entity = new Reserva();
-        entity.setRestauranteId(reservaDTO.getRestauranteId());
-        entity.setReservaId(reservaDTO.getReservaId());
-        entity.setDataReserva(reservaDTO.getDataReserva());
-        entity.setHorarioReserva(reservaDTO.getHorarioReserva());
-        reservaRepository.save(entity);
-        return new ReservaDTO(entity);
-  }
+    public ReservaDTO updateReservasConfirmadas(String idReserva, ReservaDTO dto) {
+        Optional<Reserva> optionalReserva = reservaRepository.findByIdReserva(idReserva);
+        if (optionalReserva.isPresent()) {
+            Reserva entity = optionalReserva.get();
+            entity.setDataReserva(dto.getDataReserva());
+            entity.setReservasConfirmadas(dto.getReservasConfirmadas());
+            entity.setHorarioReserva(dto.getHorarioReserva());
+            entity = reservaRepository.save(entity);
+            return new ReservaDTO(entity);
+        } else {
+            throw new ResourceNotFoundException("Reserva não encontrada com o id: " + idReserva);
+        }
+    }
 }

@@ -6,9 +6,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,17 +16,17 @@ import java.util.List;
 @Document(collection = "avaliacoes")
 public class Avaliacao {
     @Id
-    private String avaliacaoId;
+    private ObjectId objectIdAvaliacao;
     private double nota;
     private String comentarios;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "restaurante", referencedColumnName = "restauranteId")
-    private Long restauranteId;
+    @JoinColumn(name = "restaurante", referencedColumnName = "objectIdRestaurante")
+    private ObjectId objectIdRestaurante;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario", referencedColumnName = "usuarioId")
-    private Long usuarioId;
+    @JoinColumn(name = "usuario", referencedColumnName = "objectIdUsuario")
+    private ObjectId objectIdUsuario;
 
     public void adicionarNota(double nota) {
         if (nota >= 1 && nota <= 5) {

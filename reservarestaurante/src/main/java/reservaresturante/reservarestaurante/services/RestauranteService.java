@@ -19,6 +19,11 @@ public class RestauranteService {
     @Autowired
     private RestauranteRepository restauranteRepository;
 
+    @Transactional
+    public List<RestauranteDTO> findAll(){
+        List<Restaurante> list = restauranteRepository.findAll();
+        return list.stream().map(RestauranteDTO::new).collect(Collectors.toList());
+    }
     public RestauranteService(RestauranteRepository restauranteRepository) {
         this.restauranteRepository = restauranteRepository;
     }
@@ -58,10 +63,14 @@ public class RestauranteService {
     @Transactional
     public RestauranteDTO inserirRestaurante(RestauranteDTO restauranteDTO) {
         Restaurante entity = new Restaurante();
-        entity.setRestauranteId(restauranteDTO.getRestauranteId());
+        entity.setObjectIdRestaurante(restauranteDTO.getObjectIdRestaurante());
         entity.setNome(restauranteDTO.getNome());
         entity.setTipoCozinha(restauranteDTO.getTipoCozinha());
         entity.setLocalizacao(restauranteDTO.getLocalizacao());
+        entity.setCapacidade(restauranteDTO.getCapacidade());
+        entity.setDiasDeFuncionamento(restauranteDTO.getDiasDeFuncionamento());
+        entity.setHorarioDeAbertura(restauranteDTO.getHorarioDeAbertura());
+        entity.setHorarioDeEncerramento(restauranteDTO.getHorarioDeEncerramento());
         restauranteRepository.save(entity);
         return new RestauranteDTO(entity);
 

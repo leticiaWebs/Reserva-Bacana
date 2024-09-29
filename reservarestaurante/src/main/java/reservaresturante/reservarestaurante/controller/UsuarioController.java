@@ -1,5 +1,6 @@
 package reservaresturante.reservarestaurante.controller;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,8 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
     @GetMapping("/{usuarioId}")
-    public ResponseEntity<UsuarioDTO> findByUsuarioId(@PathVariable Long usuarioId) {
-        UsuarioDTO usuario = usuarioService.findByUsuarioId(usuarioId);
+    public ResponseEntity<UsuarioDTO> findByUsuarioId(@PathVariable ObjectId objectIdUsuario) {
+        UsuarioDTO usuario = usuarioService.findByUsuarioId(objectIdUsuario);
         return ResponseEntity.ok(usuario);
     }
     @PostMapping
