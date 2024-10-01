@@ -32,6 +32,7 @@
 		<aspectj.version>1.9.19</aspectj.version>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
+		<version>0.0.2-SNAPSHOT</version>
 	</properties>
 	<dependencies>
 		<dependency>
